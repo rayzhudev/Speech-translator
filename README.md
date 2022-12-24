@@ -1,6 +1,6 @@
 ### Speech Translator
 
-This is a program which takes audio files and translates them to speech in another language. It does this by transcribing, then translating, then vocoding.
+This is a program which takes audio files and translates them to speech in another language. It does this by transcribing, then translating, then synthesising to speech.
 
 ### How to use
 1. Install the required libraries.
@@ -8,11 +8,14 @@ This is a program which takes audio files and translates them to speech in anoth
 pip install whisper googletrans gtts
 ```
 
-2. Add your audio recordings you wish to translate to the recordings folder. Then run the command
+2. Add your audio recordings you wish to translate to the recordings folder. Language codes can be found here https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+
+Then run the command
 ```
 python translate.py recordings/YOUR_FILE_PATH LANGUAGE_CODE
 ```
-Language codes can be found here https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+
+
 e.g. To translate the file "Against Imperialism" to French, run the command
 
 ```
