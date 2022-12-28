@@ -33,8 +33,14 @@ def transcribe(file_path, output_file):
     print("Starting transcription")
     model = whisper.load_model("base")
     result = model.transcribe(file_path)
+    
+    transcribed_text = result["text"].split(".")
+    for i in range(len(transcribed_text)):
+        transcribed_text[i] = transcribed_text[i].strip()
+    transcribed_text = ".\n".join(transcribed_text)
+
     transcription = open(TRANSCRIBED_TEXT_DIR+output_file+"_transcribed.md","w")
-    transcription.write(result["text"])
+    transcription.write(transcribed_text.strip())
     transcription.close()
     return
 
@@ -44,13 +50,15 @@ def translate(file_path, output_file, language_code):
     # Read the contents of the transcribed file
     with open(file_path, "r") as transcribed_file:
         text = transcribed_file.read()
+    text = text.split(".")
 
-    # Use the googletrans library to translate the text
-    translator = googletrans.Translator()
-    translated_text = translator.translate(text, dest=language_code).text
+    # translate each sentence
+    for i in range(len(text)):
+        text[i] = googletrans.Translator().translate(text[i], dest=language_code).text
+    translated_text = ".\n".join(text)
 
     translated_file = open(TRANSLATED_TEXT_DIR+output_file+"_translated.md","w")
-    translated_file.write(translated_text)
+    translated_file.write(translated_text.strip())
     translated_file.close()
     return
 
